@@ -1,14 +1,16 @@
-import React from "react";
 
 
-class APP extends React.Component {
+class test {
+    name = 'hello'
 
-    render() {
-        return <div>hello react here</div>
+    sayhello(){
+        console.log(this.name);
+        
     }
 
 
 }
 
-export default APP
+
+
 
