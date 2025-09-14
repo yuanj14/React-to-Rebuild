@@ -4,7 +4,8 @@ export default class topbar extends Component {
     state = {
 
     }
-
+    //类式组件通信  
+    //  类属性合并
     static propTypes = {
         title: PropTypes.string.isRequired,
         leftshow: PropTypes.bool.isRequired
@@ -20,7 +21,7 @@ export default class topbar extends Component {
         // console.log(this.props.title);
         // console.log(PropTypes);
         let { title, leftshow } = this.props
-        console.log(typeof leftshow);
+        // console.log(typeof leftshow);
 
         return (
 

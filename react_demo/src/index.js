@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import APP from "./items/props";
+import APP from "./b2p/toDoList/evt";
 
 const content = "<name>";
 
