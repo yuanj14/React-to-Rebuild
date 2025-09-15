@@ -9,6 +9,7 @@ export default class extends Component {
             leftshow: true
         }
         return (
+            
             <div>
                 <h1 title="这是页面主标题">访问网站</h1>
                 <div>
