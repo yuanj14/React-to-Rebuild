@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import APP from "./advanced/table_field";
+import APP from "./advanced/lifecycle";
 import Task from "./base01/antd_demo"
 
 const content = "<name>";

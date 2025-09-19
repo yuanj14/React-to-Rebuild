@@ -8,9 +8,10 @@ const App = () => (
     banner
     message={
       <Marquee pauseOnHover gradient={false}>
-        ✅Github repository
-        ❌组件通信
-        ✅Leetcode
+        ❌生命周期
+        滑动窗口
+        context方案 
+        插槽
       </Marquee>
     }
   />
