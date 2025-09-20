@@ -2,16 +2,20 @@
 import { Component } from 'react';
 
 
-class children extends Component{
+class children extends Component {
     state = {
-        title : 'tg'
+        title: 'tg'
     }
-    render(){
-
+    render() {
+        return (
+            <>
+                git hello
+            </>
+        )
     }
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         console.log("componentWillReceiveProps", this.props.text);
-        
+
     }
 }
 
@@ -33,15 +37,15 @@ export default class lifecycle extends Component {
         console.log("here render");
         return (
             <div>
-                <children text = {this.state.name}/>
-                <button onClick={()=>{
+                <children text={this.state.name} />
+                <button onClick={() => {
                     this.setState({
-                        name : "💗新名字"
+                        name: "💗新名字"
                     })
                 }}>
                     掉完
                 </button>
-                <span id = 'myname'>
+                <span id='myname'>
                     {this.state.name}
                 </span>
             </div>
@@ -54,7 +58,7 @@ export default class lifecycle extends Component {
 
     }
 
-    shouldComponentUpdate(nextProps,nextState){
+    shouldComponentUpdate(nextProps, nextState) {
         //是否应该更新进行判断 避免性能浪费
 
         // if(this.state.name !== nextState.name){
@@ -62,22 +66,22 @@ export default class lifecycle extends Component {
         // }
         // return false
         // JSON API 字符串解析 stringify parse
-        if(JSON.stringify(this.state) !== JSON.stringify(nextState)){
+        if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
             return true
-        } 
+        }
         return false
     }
-    UNSAFE_componentWillUpdate(){
+    UNSAFE_componentWillUpdate() {
         // 已渲染存在DOM值 未render 旧
         console.log("WILLUPDATE", document.getElementById("myname"));
-        
+
     }
 
-    componentDidUpdate(preProps,preState){
+    componentDidUpdate(preProps, preState) {
         // 已渲染 new
         // console.log("DIDUPDATE", document.getElementById("myname").innerHTML);
-        console.log(preProps,preState);
-        
+        console.log(preProps, preState);
+
     }
 
 }
