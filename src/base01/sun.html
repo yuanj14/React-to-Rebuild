@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>反向代理解决跨域演示 (XMLHttpRequest)</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .btn { padding: 12px 20px; margin: 10px 5px 20px 0; cursor: pointer; border: none; border-radius: 4px; font-size: 16px; }
+        #direct-btn { background-color: #dc3545; color: white; }
+        #proxy-btn { background-color: #28a745; color: white; }
+        pre { background-color: #f8f9fa; padding: 15px; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; }
+        .response-container { border: 1px solid #ddd; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
+        h2 { color: #333; }
+    </style>
+</head>
+<body>
+
+    <h1>反向代理解决跨域演示 (XMLHttpRequest)</h1>
+    <p>当前页面运行在: <strong>http://localhost:3000</strong></p>
+    <p>目标API (不支持CORS): <strong>https://api.bilibili.com</strong></p>
+
+    <!-- 场景一：直接请求（预期失败） -->
+    <div class="response-container">
+        <h2>场景一：直接请求 (会失败)</h2>
+        <button class="btn" id="direct-btn" onclick="directRequest()">点击：直接请求</button>
+        <h3>响应结果 (请打开浏览器控制台F12查看错误):</h3>
+        <pre id="direct-response">点击按钮后，结果将显示在这里...</pre>
+    </div>
+
+    <hr>
+
+    <!-- 场景二：通过反向代理请求（预期成功） -->
+    <div class="response-container">
+        <h2>场景二：通过反向代理请求 (会成功)</h2>
+        <button class="btn" id="proxy-btn" onclick="proxyRequest()">点击：通过代理请求</button>
+        <h3>响应结果:</h3>
+        <pre id="proxy-response">点击按钮后，结果将显示在这里...</pre>
+    </div>
+
+
+    <script>
+        // --- 场景一：直接请求 ---
+        function directRequest() {
+            const url = 'https://api.bilibili.com/x/web-interface/ranking/v2?rid=0&type=all';
+            const resultElement = document.getElementById('direct-response');
+            resultElement.textContent = "正在直接请求 " + url + " ...\n";
+            resultElement.textContent += "请查看浏览器控制台 (F12) 以看到跨域错误。\n\n";
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    resultElement.textContent += "意外成功: " + xhr.responseText;
+                } else {
+                    resultElement.textContent += "请求完成但状态错误: " + xhr.statusText;
+                }
+            };
+
+            xhr.onerror = function() {
+                resultElement.textContent += "XMLHttpRequest 发生错误。这是跨域导致的。";
+            };
+
+            xhr.send();
+        }
+
+        // --- 场景二：通过代理请求 ---
+        function proxyRequest() {
+            // 注意：请求地址是我们配置的代理路径
+            const proxyUrl = '/api/bilibili/x/web-interface/ranking/v2?rid=0&type=all';
+            const resultElement = document.getElementById('proxy-response');
+            resultElement.textContent = "正在通过代理请求 " + proxyUrl + " ...\n";
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', proxyUrl, true);
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // 请求成功，将JSON响应格式化后显示
+                    const data = JSON.parse(xhr.responseText);
+                    resultElement.textContent += JSON.stringify(data, null, 2);
+                } else {
+                    resultElement.textContent += "请求完成但状态错误: " + xhr.statusText;
+                }
+            };
+
+            xhr.onerror = function() {
+                resultElement.textContent += "通过代理请求也发生了错误，请检查代理服务器配置。";
+            };
+
+            xhr.send();
+        }
+    </script>
+
+</body>
+</html>
