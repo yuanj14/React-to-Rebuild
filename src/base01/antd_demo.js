@@ -8,11 +8,10 @@ const App = () => (
     banner
     message={
       <Marquee pauseOnHover gradient={false}>
-        Router Redux
         Antd 📊Antv
+        JointJs
         滑动窗口
-        {/* Nginx 前后联调 */}
-        IEEE季度报告 STA5002(ddl)
+        IEEE季度报告
       </Marquee>
     }
   />

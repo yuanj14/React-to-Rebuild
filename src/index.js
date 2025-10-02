@@ -2,12 +2,14 @@ import ReactDOM from "react-dom/client";
 import Task from "./base01/antd_demo";
 import NRouter from './router/indexrouter.jsx'
 import Tabbar from './component/Tabbar.jsx'
+import Report from './tt'
 const content = "<name>";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <div>
         <Task />
+        <Report/>
         {/* <APP /> */}
         <NRouter>
             <Tabbar/>
