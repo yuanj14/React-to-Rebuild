@@ -7,6 +7,10 @@ export default defineConfig({
   server: {
     hmr: false,
     port: 5173,
+    // 手动刷新进行文件更新配置
+    watch: {
+      usePolling: true,
+    },
   },
 
   build: {
