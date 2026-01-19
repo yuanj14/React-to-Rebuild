@@ -5,11 +5,16 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    hmr: false, 
-    port: 5173, 
+    hmr: false,
+    port: 5173,
   },
 
   build: {
-    //sourcemap: 
+    //sourcemap:
+  },
+  resolve: {
+    alias: {
+      '~': '/src', // '~' 将映射到 '/src' 目录
+    },
   },
 })

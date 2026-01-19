@@ -1,7 +1,19 @@
 {
+  "compilerOptions": {
+    "baseUrl": ".", // 设置基础路径为项目根目录
+    "paths": {
+      "~/*": [
+        "src/*"
+      ], // 将 '~' 映射到 'src' 目录
+    }
+  },
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
   ]
 }
