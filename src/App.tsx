@@ -1,14 +1,11 @@
-import { useState, useCallback, StrictMode } from 'react'
 import './App.css'
-import { ControlledForm } from './component/features/ControlledForm'
+import { ActionStateDemo } from './component/features/form/useActionState'
 
 function App() {
   return (
-    // <StrictMode>
-    <>
-      <ControlledForm />
-    </>
-    /* </StrictMode> */
+    <div className="App">
+      <ActionStateDemo />
+    </div>
   )
 }
 

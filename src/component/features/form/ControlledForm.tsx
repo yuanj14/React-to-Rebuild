@@ -1,6 +1,66 @@
 import { useEffect, useState } from 'react'
 
-type FormData = {
+/**
+ * ========== 传统 onSubmit 方式（受控表单） ==========
+ *
+ * 【核心特点】
+ * 1. 使用 <form onSubmit={handleSubmit}> 处理提交
+ * 2. 必须调用 e.preventDefault() 阻止页面刷新
+ * 3. 需要手动管理 state 存储表单数据
+ * 4. 需要手动管理 loading/submitting 状态
+ * 5. button 需要写 type="submit"
+ *
+ * 【与 React 19 Form Action 的区别】
+ * | 特性           | onSubmit (传统方式)         | form action (React 19)    |
+ * |----------------|---------------------------|---------------------------|
+ * | 数据获取        | 手动 useState 管理        | 自动封装为 FormData        |
+ * | 阻止默认行为    | 需要 e.preventDefault()   | 自动处理                   |
+ * | 提交状态        | 需要手动 useState 管理    | useFormStatus 自动追踪     |
+ * | 表单验证        | 完全控制，灵活度高          | 需要额外处理               |
+ * | 适用场景        | 复杂表单、精细控制          | 简单表单、服务端渲染        |
+ */
+
+// ========== 后端请求示例 ==========
+
+// 自定义错误类型
+class ApiError extends Error {
+  status: number
+
+  constructor(status: number, message: string) {
+    super(message)
+    this.name = 'ApiError'
+    this.status = status
+  }
+}
+
+// GET 请求 - 参数放在 URL query string
+// 底层函数只负责抛出错误，不做 console
+async function fetchHelloGet(name: string) {
+  const response = await fetch(`/api/hello?name=${encodeURIComponent(name)}`)
+
+  if (!response.ok) {
+    throw new ApiError(response.status, `请求失败: ${response.status} ${response.statusText}`)
+  }
+
+  return response.json()
+}
+
+// POST 请求 - 参数放在 body（JSON 格式）
+async function fetchHelloPost(name: string) {
+  const response = await fetch('/api/hello', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name }),
+  })
+
+  if (!response.ok) {
+    throw new ApiError(response.status, `请求失败: ${response.status} ${response.statusText}`)
+  }
+
+  return response.json()
+}
+
+type FormDataType = {
   username: string
   agreements: string[]
   agreementDate: string
@@ -11,8 +71,8 @@ type FormData = {
 }
 
 export function ControlledForm() {
-  const [formData, setFormData] = useState<FormData>({
-    username: '',
+  const [formData, setFormData] = useState<FormDataType>({
+    username: 'guodd', // 默认值
     agreements: [],
     agreementDate: '',
     contentNumber: 0,
@@ -21,6 +81,8 @@ export function ControlledForm() {
     star: '5',
   })
 
+  // 手动管理提交状态（传统方式必须手动做）
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 
   // 新增：副作用处理预览逻辑
@@ -63,9 +125,23 @@ export function ControlledForm() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    // 传统方式必须手动阻止默认行为
     e.preventDefault()
-    console.log('提交的最终数据：', formData)
+
+    // 传统方式必须手动管理 loading 状态
+    setIsSubmitting(true)
+
+    try {
+      // 发送 POST 请求到后端（常用 POST 提交表单）
+      const result = await fetchHelloPost(formData.username)
+      console.log('onSubmit 提交成功:', result)
+      console.log('提交的最终数据：', formData)
+    } catch (error) {
+      console.error('提交失败:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -77,6 +153,8 @@ export function ControlledForm() {
         gap: '10px',
         maxWidth: '300px',
       }}>
+      <h3>传统 onSubmit 方式（受控表单）</h3>
+
       <label htmlFor="username">用户名</label>
       <input
         type="text"
@@ -185,9 +263,24 @@ export function ControlledForm() {
           <option value="5">5 星</option>
         </select>
       </label>
-      <button type="submit" style={{ marginTop: '20px' }}>
-        提交表单
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        style={{ marginTop: '20px' }}>
+        {isSubmitting ? '正在提交...' : '提交表单'}
       </button>
+
+      <div style={{ marginTop: '1rem', fontSize: '0.9em', color: '#666' }}>
+        <p>传统 onSubmit 方式的特点：</p>
+        <ul>
+          <li>必须调用 e.preventDefault()</li>
+          <li>需要手动管理 isSubmitting 状态</li>
+          <li>需要手动用 useState 存储所有表单字段</li>
+          <li>更灵活，适合复杂表单验证</li>
+        </ul>
+      </div>
     </form>
   )
 }
+
+export { fetchHelloGet, fetchHelloPost }

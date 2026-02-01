@@ -13,8 +13,8 @@ export const useAppleStore = create<AppleStore>((set, get) => {
     count: 0,
     price: 2,
     increment: () =>
-      set((state) => {
-        return { count: state.count + 1 }
+      set((prev) => {
+        return { count: prev.count + 1 }
       }),
     setPrice: (price) => set({ price }),
     getTotal: () => {
