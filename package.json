@@ -4,15 +4,15 @@
   "private": true,
   "author": "wowo",
   "scripts": {
-    "build": "max build",
     "dev": "max dev",
+    "format": "prettier --cache --write src",
+    "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx",
+    "build": "max build",
     "postinstall": "max setup",
     "setup": "max setup",
     "start": "npm run dev",
-    "format": "prettier --cache --write src",
-    "lint": "lint-staged",
-    "lint:fix": "lint-staged --allow-empty",
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
@@ -33,5 +33,14 @@
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-packagejson": "^3.0.0",
     "typescript": "^5.9.3"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "src/**/*.{json,css,less}": [
+      "prettier --write"
+    ]
   }
 }

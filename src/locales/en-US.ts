@@ -4,4 +4,4 @@ export default {
   'menu.table': 'CRUD Example',
   'page.home.welcome': 'Welcome',
   'page.home.switchLang': 'Switch Language',
-};
+}

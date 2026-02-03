@@ -1,11 +1,4 @@
 # 忽略所有文件
 *
-
 # 只允许 src 目录
-!src/
 !src/**
-
-# 排除构建产物
-node_modules
-.umi
-.umi-production
