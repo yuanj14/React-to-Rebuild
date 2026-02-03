@@ -17,9 +17,7 @@ export async function queryUserList(
 ) {
   return request<API.Result_PageInfo_UserInfo__>('/api/v1/queryUserList', {
     method: 'GET',
-    params: {
-      ...params,
-    },
+    params: { ...params },
     ...(options || {}),
   });
 }
@@ -31,9 +29,7 @@ export async function addUser(
 ) {
   return request<API.Result_UserInfo_>('/api/v1/user', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     data: body,
     ...(options || {}),
   });
@@ -69,9 +65,7 @@ export async function modifyUser(
   const { userId: param0 } = params;
   return request<API.Result_UserInfo_>(`/api/v1/user/${param0}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     params: { ...params },
     data: body,
     ...(options || {}),

@@ -8,34 +8,13 @@ export default defineConfig({
   request: {},
   // 禁用 MFSU，解决 React Compiler Runtime 兼容性问题
   mfsu: false,
-  locale: {
-    default: 'zh-CN',
-    baseSeparator: '-',
-  },
-  layout: {
-    title: 'ruo11',
-    locale: true,
-  },
+  locale: { default: 'zh-CN', baseSeparator: '-' },
+  layout: { title: 'ruo11', locale: true },
   routes: [
-    {
-      path: '/',
-      redirect: '/home',
-    },
-    {
-      name: 'home',
-      path: '/home',
-      component: './Home',
-    },
-    {
-      name: 'access',
-      path: '/access',
-      component: './Access',
-    },
-    {
-      name: 'table',
-      path: '/table',
-      component: './Table',
-    },
+    { path: '/', redirect: '/home' },
+    { name: 'home', path: '/home', component: './Home' },
+    { name: 'access', path: '/access', component: './Access' },
+    { name: 'table', path: '/table', component: './Table' },
   ],
   npmClient: 'pnpm',
   // 启用 React Compiler umijs不兼容react19

@@ -4,19 +4,23 @@
   "private": true,
   "author": "wowo",
   "scripts": {
-    "dev": "max dev",
     "build": "max build",
-    "format": "prettier --cache --write .",
-    "prepare": "husky",
+    "dev": "max dev",
     "postinstall": "max setup",
     "setup": "max setup",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "format": "prettier --cache --write src",
+    "lint": "lint-staged",
+    "lint:fix": "lint-staged --allow-empty",
+    "prepare": "husky"
   },
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
     "@ant-design/pro-components": "^2.8.10",
     "@umijs/max": "^4.6.25",
     "antd": "^6.2.2",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "react-compiler-runtime": "^1.0.0"
   },
   "devDependencies": {

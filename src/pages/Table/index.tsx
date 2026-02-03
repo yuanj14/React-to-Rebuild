@@ -41,9 +41,7 @@ const handleUpdate = async (fields: FormValueType) => {
   const hide = message.loading('正在配置');
   try {
     await modifyUser(
-      {
-        userId: fields.id || '',
-      },
+      { userId: fields.id || '' },
       {
         name: fields.name || '',
         nickName: fields.nickName || '',
@@ -69,9 +67,7 @@ const handleRemove = async (selectedRows: API.UserInfo[]) => {
   const hide = message.loading('正在删除');
   if (!selectedRows) return true;
   try {
-    await deleteUser({
-      userId: selectedRows.find((row) => row.id)?.id || '',
-    });
+    await deleteUser({ userId: selectedRows.find((row) => row.id)?.id || '' });
     hide();
     message.success('删除成功，即将刷新');
     return true;
@@ -95,20 +91,9 @@ const TableList: React.FC<unknown> = () => {
       title: '名称',
       dataIndex: 'name',
       tip: '名称是唯一的 key',
-      formItemProps: {
-        rules: [
-          {
-            required: true,
-            message: '名称为必填项',
-          },
-        ],
-      },
+      formItemProps: { rules: [{ required: true, message: '名称为必填项' }] },
     },
-    {
-      title: '昵称',
-      dataIndex: 'nickName',
-      valueType: 'text',
-    },
+    { title: '昵称', dataIndex: 'nickName', valueType: 'text' },
     {
       title: '性别',
       dataIndex: 'gender',
@@ -128,8 +113,7 @@ const TableList: React.FC<unknown> = () => {
             onClick={() => {
               handleUpdateModalVisible(true);
               setStepFormValues(record);
-            }}
-          >
+            }}>
             配置
           </a>
           <Divider type="vertical" />
@@ -140,24 +124,17 @@ const TableList: React.FC<unknown> = () => {
   ];
 
   return (
-    <PageContainer
-      header={{
-        title: 'CRUD 示例',
-      }}
-    >
+    <PageContainer header={{ title: 'CRUD 示例' }}>
       <ProTable<API.UserInfo>
         headerTitle="查询表格"
         actionRef={actionRef}
         rowKey="id"
-        search={{
-          labelWidth: 120,
-        }}
+        search={{ labelWidth: 120 }}
         toolBarRender={() => [
           <Button
             key="1"
             type="primary"
-            onClick={() => handleModalVisible(true)}
-          >
+            onClick={() => handleModalVisible(true)}>
             新建
           </Button>,
         ]}
@@ -169,10 +146,7 @@ const TableList: React.FC<unknown> = () => {
             sorter,
             filter,
           });
-          return {
-            data: data?.list || [],
-            success,
-          };
+          return { data: data?.list || [], success };
         }}
         columns={columns}
         rowSelection={{
@@ -187,15 +161,13 @@ const TableList: React.FC<unknown> = () => {
               <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>{' '}
               项&nbsp;&nbsp;
             </div>
-          }
-        >
+          }>
           <Button
             onClick={async () => {
               await handleRemove(selectedRowsState);
               setSelectedRows([]);
               actionRef.current?.reloadAndRest?.();
-            }}
-          >
+            }}>
             批量删除
           </Button>
           <Button type="primary">批量审批</Button>
@@ -203,8 +175,7 @@ const TableList: React.FC<unknown> = () => {
       )}
       <CreateForm
         onCancel={() => handleModalVisible(false)}
-        modalVisible={createModalVisible}
-      >
+        modalVisible={createModalVisible}>
         <ProTable<API.UserInfo, API.UserInfo>
           onSubmit={async (value) => {
             const success = await handleAdd(value);
@@ -247,18 +218,13 @@ const TableList: React.FC<unknown> = () => {
         onClose={() => {
           setRow(undefined);
         }}
-        closable={false}
-      >
+        closable={false}>
         {row?.name && (
           <ProDescriptions<API.UserInfo>
             column={2}
             title={row?.name}
-            request={async () => ({
-              data: row || {},
-            })}
-            params={{
-              id: row?.name,
-            }}
+            request={async () => ({ data: row || {} })}
+            params={{ id: row?.name }}
             columns={columns}
           />
         )}
