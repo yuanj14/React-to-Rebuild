@@ -16,6 +16,7 @@ export default function ThemeSwitch() {
       checkedChildren={<MoonOutlined />}
       unCheckedChildren={<SunOutlined />}
       title={isDark ? '切换到亮色主题' : '切换到暗色主题'}
+      style={{ verticalAlign: 'middle' }}
     />
   )
 }

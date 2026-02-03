@@ -12,6 +12,8 @@
 /.mfsu
 .swc
 .turbopack
+
+# 忽略 Qoder 配置文件
 .agents
 .junie
 .qoder

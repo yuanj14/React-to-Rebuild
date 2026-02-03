@@ -7,6 +7,7 @@
     "dev": "max dev",
     "format": "prettier --cache --write src",
     "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx",
+    "separate": "",
     "build": "max build",
     "postinstall": "max setup",
     "setup": "max setup",
@@ -20,13 +21,14 @@
     "@umijs/max": "^4.6.25",
     "antd": "^6.2.2",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-compiler-runtime": "^1.0.0"
+    "react-compiler-runtime": "^1.0.0",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
     "babel-plugin-react-compiler": "^1.0.0",
+    "eslint-config-prettier": "^10.1.8",
     "husky": "^9",
     "lint-staged": "^16.2.7",
     "prettier": "^3.8.1",

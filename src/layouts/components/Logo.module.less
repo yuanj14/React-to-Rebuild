@@ -1,0 +1,46 @@
+// Logo 组件样式
+
+.logoWrapper {
+  height: 64px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 16px;
+  overflow: hidden;
+}
+
+.collapsed {
+  justify-content: center;
+}
+
+.expanded {
+  justify-content: flex-start;
+}
+
+.image {
+  height: 32px;
+  width: 32px;
+  flex-shrink: 0;
+}
+
+.text {
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 50px;
+  text-align: center;
+  transition: all 0.28s ease-in-out;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.textExpanded {
+  margin-left: 12px;
+  opacity: 1;
+  width: auto;
+}
+
+.textCollapsed {
+  margin-left: 0;
+  opacity: 0;
+  width: 0;
+}

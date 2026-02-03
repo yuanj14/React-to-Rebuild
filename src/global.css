@@ -1,0 +1,35 @@
+/* CSS Reset - 重置默认样式 */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 防止图片拉伸 */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 移除列表默认样式 */
+ul,
+ol {
+  list-style: none;
+}
+
+/* 链接默认样式 */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 全局字体设置 */
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, 'Noto Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
