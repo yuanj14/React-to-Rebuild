@@ -14,6 +14,7 @@ export default defineConfig({
   // layout: { title: 'ruo11', locale: true }, // 禁用内置 ProLayout，使用自定义 layouts/index.tsx
   routes,
   npmClient: 'pnpm',
+  esbuildMinifyIIFE: true,
   // 启用 React Compiler
   extraBabelPlugins: [['babel-plugin-react-compiler', { target: '19' }]],
 })
